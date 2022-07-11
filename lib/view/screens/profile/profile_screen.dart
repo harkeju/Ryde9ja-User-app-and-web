@@ -6,7 +6,9 @@ import 'package:sixam_mart/helper/responsive_helper.dart';
 import 'package:sixam_mart/helper/route_helper.dart';
 import 'package:sixam_mart/util/app_constants.dart';
 import 'package:sixam_mart/util/dimensions.dart';
+import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/util/styles.dart';
+import 'package:sixam_mart/view/base/confirmation_dialog.dart';
 import 'package:sixam_mart/view/base/custom_image.dart';
 import 'package:sixam_mart/view/base/footer_view.dart';
 import 'package:sixam_mart/view/base/menu_drawer.dart';
@@ -97,7 +99,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ProfileButton(icon: Icons.edit, title: 'edit_profile'.tr, onTap: () {
                   Get.toNamed(RouteHelper.getUpdateProfileRoute());
                 }),
-                SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
+                SizedBox(height: _isLoggedIn ? Dimensions.PADDING_SIZE_SMALL : Dimensions.PADDING_SIZE_LARGE),
+
+                _isLoggedIn ? ProfileButton(
+                  icon: Icons.delete, title: 'delete_account'.tr,
+                  onTap: () {
+                    Get.dialog(ConfirmationDialog(icon: Images.support,
+                      title: 'are_you_sure_to_delete_account'.tr,
+                      description: 'it_will_remove_your_all_information'.tr, isLogOut: true,
+                      onYesPressed: () => userController.removeUser(),
+                    ), useSafeArea: false);
+                  },
+                ) : SizedBox(),
+                SizedBox(height: _isLoggedIn ? Dimensions.PADDING_SIZE_LARGE : 0),
 
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Text('${'version'.tr}:', style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall)),

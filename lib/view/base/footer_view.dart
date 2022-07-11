@@ -262,7 +262,7 @@ class _FooterViewState extends State<FooterView> {
 
   _launchURL(String url) async {
     if (await canLaunchUrlString(url)) {
-      await launchUrlString(url);
+      await launchUrlString(url, mode: LaunchMode.externalApplication);
     } else {
       throw 'Could not launch $url';
     }
@@ -283,7 +283,7 @@ class FooterButton extends StatelessWidget {
         onTap: route.isNotEmpty ? () async {
           if(url) {
             if(await canLaunchUrlString(route)) {
-              launchUrlString(route);
+              launchUrlString(route, mode: LaunchMode.externalApplication);
             }
           }else {
             Get.toNamed(route);

@@ -492,5 +492,12 @@
   "not_provided": "Not Provided",
   "item_details": "Item Details",
   "enter_sender_name": "Enter sender name",
-  "enter_sender_phone_number": "Enter sender phone number"
+  "enter_sender_phone_number": "Enter sender phone number",
+
+  "your_account_remove_successfully": "Your account remove successfully",
+  "there_is_a_problem_on_removing_your_account": "There is a problem on removing your account",
+  "delete_account": "Delete Account",
+  "are_you_sure_to_delete_account": "Are you sure to delete your account?",
+  "it_will_remove_your_all_information": "It will remove your all information.",
+  "no_restaurant_data_found": "No restaurant data found"
 }

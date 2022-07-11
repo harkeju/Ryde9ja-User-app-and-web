@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:sixam_mart/controller/location_controller.dart';
 import 'package:sixam_mart/controller/splash_controller.dart';
 import 'package:sixam_mart/data/api/api_client.dart';
 import 'package:sixam_mart/data/model/response/address_model.dart';
@@ -43,7 +44,10 @@ class LocalizationController extends GetxController implements GetxService {
       locale.languageCode, Get.find<SplashController>().module != null ? Get.find<SplashController>().module.id : null,
     );
     saveLanguage(_locale);
-    HomeScreen.loadData(true);
+    if(Get.find<LocationController>().getUserAddress() != null) {
+      HomeScreen.loadData(true);
+    }
+
     update();
   }
 

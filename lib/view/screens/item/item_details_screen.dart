@@ -11,6 +11,7 @@ import 'package:sixam_mart/helper/route_helper.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/util/styles.dart';
+import 'package:sixam_mart/view/base/cart_snackbar.dart';
 import 'package:sixam_mart/view/base/confirmation_dialog.dart';
 import 'package:sixam_mart/view/base/custom_app_bar.dart';
 import 'package:sixam_mart/view/base/custom_button.dart';
@@ -23,7 +24,8 @@ import 'package:sixam_mart/view/screens/item/widget/item_title_view.dart';
 
 class ItemDetailsScreen extends StatefulWidget {
   final Item item;
-  ItemDetailsScreen({@required this.item});
+  final bool inStorePage;
+  ItemDetailsScreen({@required this.item, @required this.inStorePage});
 
   @override
   State<ItemDetailsScreen> createState() => _ItemDetailsScreenState();
@@ -117,7 +119,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                   ItemImageView(item: itemController.item),
                   SizedBox(height: 20),
 
-                  ItemTitleView(item: itemController.item),
+                  ItemTitleView(item: itemController.item, inStorePage: widget.inStorePage),
                   Divider(height: 20, thickness: 2),
 
                   // Variation
@@ -255,7 +257,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                           onYesPressed: () {
                             Get.back();
                             Get.find<CartController>().removeAllAndAddToCart(_cartModel);
-                            showCustomSnackBar('item_added_to_cart'.tr, isError: false);
+                            showCartSnackBar(context);
                           },
                         ), barrierDismissible: false);
                       } else {
@@ -263,7 +265,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                           Get.find<CartController>().addToCart(_cartModel, itemController.cartIndex);
                         }
                         _key.currentState.shake();
-                        showCustomSnackBar('item_added_to_cart'.tr, isError: false);
+                        showCartSnackBar(context);
                       }
                     }
                   }

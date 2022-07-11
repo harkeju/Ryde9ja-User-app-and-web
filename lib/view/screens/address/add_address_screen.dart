@@ -106,7 +106,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
                     child: Stack(clipBehavior: Clip.none, children: [
                       GoogleMap(
-                        initialCameraPosition: CameraPosition(target: _initialPosition, zoom: 17),
+                        initialCameraPosition: CameraPosition(target: _initialPosition, zoom: 16),
+                        minMaxZoomPreference: MinMaxZoomPreference(0, 16),
                         onTap: (latLng) {
                           Get.toNamed(
                             RouteHelper.getPickMapRoute('add-address', false),

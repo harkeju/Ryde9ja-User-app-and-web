@@ -54,10 +54,12 @@ class ItemWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         if(isStore) {
-          Get.toNamed(
-            RouteHelper.getStoreRoute(store.id, isFeatured ? 'module' : 'item'),
-            arguments: StoreScreen(store: store, fromModule: isFeatured),
-          );
+          if(store != null){
+            Get.toNamed(
+              RouteHelper.getStoreRoute(store.id, isFeatured ? 'module' : 'item'),
+              arguments: StoreScreen(store: store, fromModule: isFeatured),
+            );
+          }
         }else {
           Get.find<ItemController>().navigateToItemPage(item, context, inStore: inStore, isCampaign: isCampaign);
         }

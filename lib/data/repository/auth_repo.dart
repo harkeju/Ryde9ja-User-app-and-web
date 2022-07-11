@@ -127,6 +127,11 @@ class AuthRepo {
     return true;
   }
 
+  bool clearSharedAddress(){
+    sharedPreferences.remove(AppConstants.USER_ADDRESS);
+    return true;
+  }
+
   // for  Remember Email
   Future<void> saveUserNumberAndPassword(String number, String password, String countryCode) async {
     try {

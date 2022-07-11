@@ -356,7 +356,7 @@ class ItemController extends GetxController implements GetxService {
         Dialog(child: ItemBottomSheet(item: item, inStorePage: inStore, isCampaign: isCampaign)),
       );
     }else {
-      Get.toNamed(RouteHelper.getItemDetailsRoute(item.id), arguments: ItemDetailsScreen(item: item));
+      Get.toNamed(RouteHelper.getItemDetailsRoute(item.id, inStore), arguments: ItemDetailsScreen(item: item, inStorePage: inStore));
     }
   }
 

@@ -3,10 +3,10 @@ import 'package:sixam_mart/data/model/response/language_model.dart';
 import 'package:sixam_mart/util/images.dart';
 
 class AppConstants {
-  static const String APP_NAME = 'Ryde9ja';
+  static const String APP_NAME = '6amMart';
   static const double APP_VERSION = 1.4;
 
-  static const String BASE_URL = 'https://ryde9ja.com';
+  static const String BASE_URL = 'https://6ammart.6am.one/dev';
   static const String CATEGORY_URI = '/api/v1/categories';
   static const String BANNER_URI = '/api/v1/banners';
   static const String STORE_ITEM_URI = '/api/v1/items/latest';
@@ -77,6 +77,7 @@ class AppConstants {
   static const String PRIVACY_POLICY_URI = '/privacy-policy';
   static const String TERMS_AND_CONDITIONS_URI = '/terms-and-conditions';
   static const String SUBSCRIPTION_URI = '/api/v1/newsletter/subscribe';
+  static const String CUSTOMER_REMOVE = '/api/v1/customer/remove-account';
 
   // Shared Key
   static const String THEME = '6ammart_theme';
@@ -107,6 +108,6 @@ class AppConstants {
 
   static List<LanguageModel> languages = [
     LanguageModel(imageUrl: Images.english, languageName: 'English', countryCode: 'US', languageCode: 'en'),
-    // LanguageModel(imageUrl: Images.arabic, languageName: 'عربى', countryCode: 'SA', languageCode: 'ar'),
+    LanguageModel(imageUrl: Images.arabic, languageName: 'عربى', countryCode: 'SA', languageCode: 'ar'),
   ];
 }

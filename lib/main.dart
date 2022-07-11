@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:sixam_mart/controller/auth_controller.dart';
 import 'package:sixam_mart/controller/cart_controller.dart';
 import 'package:sixam_mart/controller/localization_controller.dart';
+import 'package:sixam_mart/controller/location_controller.dart';
 import 'package:sixam_mart/controller/splash_controller.dart';
 import 'package:sixam_mart/controller/theme_controller.dart';
 import 'package:sixam_mart/controller/wishlist_controller.dart';
@@ -76,6 +77,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     if(GetPlatform.isWeb) {
       Get.find<SplashController>().initSharedData();
+      if(Get.find<LocationController>().getUserAddress() != null && Get.find<LocationController>().getUserAddress().zoneIds == null) {
+        Get.find<AuthController>().clearSharedAddress();
+      }
       Get.find<CartController>().getCartData();
       _route();
     }

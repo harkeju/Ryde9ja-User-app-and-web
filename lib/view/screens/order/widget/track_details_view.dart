@@ -62,7 +62,7 @@ class TrackDetailsView extends StatelessWidget {
 
           Expanded(
             flex: 5,
-            child: (_takeAway && track.orderType != 'parcel') ? Text(track.store.address, style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall),
+            child: (_takeAway && track.orderType != 'parcel') ? Text(track.store != null ? track.store.address : '', style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall),
               maxLines: 2, overflow: TextOverflow.ellipsis,
             ) : (track.orderType == 'parcel' && status == 'picked_up') ? AddressDetails(addressDetails: track.receiverDetails)
                 : AddressDetails(addressDetails: track.deliveryAddress),
@@ -72,10 +72,10 @@ class TrackDetailsView extends StatelessWidget {
 
         _takeAway ? InkWell(
           onTap: () async {
-            String url ='https://www.google.com/maps/dir/?api=1&destination=${track.store.latitude}'
-                ',${track.store.longitude}&mode=d';
+            String url ='https://www.google.com/maps/dir/?api=1&destination=${track.store != null ? track.store.latitude : ''}'
+                ',${track.store != null ? track.store.longitude : ''}&mode=d';
             if (await canLaunchUrlString(url)) {
-              await launchUrlString(url);
+              await launchUrlString(url, mode: LaunchMode.externalApplication);
             }else {
               showCustomSnackBar('unable_to_launch_google_map'.tr);
             }
@@ -107,28 +107,28 @@ class TrackDetailsView extends StatelessWidget {
         Row(children: [
           ClipOval(child: CustomImage(
             image: '${_takeAway ? Get.find<SplashController>().configModel.baseUrls.storeImageUrl
-                : Get.find<SplashController>().configModel.baseUrls.deliveryManImageUrl}/${_takeAway ? track.store.logo
+                : Get.find<SplashController>().configModel.baseUrls.deliveryManImageUrl}/${_takeAway ? track.store != null ? track.store.logo : ''
                 : track.deliveryMan.image}',
             height: 35, width: 35, fit: BoxFit.cover,
           )),
           SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
           Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(
-              _takeAway ? track.store.name : '${track.deliveryMan.fName} ${track.deliveryMan.lName}',
+              _takeAway ? track.store != null ? track.store.name : '' : '${track.deliveryMan.fName} ${track.deliveryMan.lName}',
               maxLines: 1, overflow: TextOverflow.ellipsis,
               style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeExtraSmall),
             ),
             RatingBar(
-              rating: _takeAway ? track.store.avgRating : track.deliveryMan.avgRating, size: 10,
-              ratingCount: _takeAway ? track.store.ratingCount : track.deliveryMan.ratingCount,
+              rating: _takeAway ? track.store != null ? track.store.avgRating : '' : track.deliveryMan.avgRating, size: 10,
+              ratingCount: _takeAway ? track.store != null ? track.store.ratingCount : '' : track.deliveryMan.ratingCount,
             ),
           ])),
           InkWell(
             onTap: () async {
-              if(await canLaunchUrlString('tel:${_takeAway ? track.store.phone : track.deliveryMan.phone}')) {
-                launchUrlString('tel:${_takeAway ? track.store.phone : track.deliveryMan.phone}');
+              if(await canLaunchUrlString('tel:${_takeAway ? track.store != null ? track.store.phone : '' : track.deliveryMan.phone}')) {
+                launchUrlString('tel:${_takeAway ? track.store != null ? track.store.phone : '' : track.deliveryMan.phone}', mode: LaunchMode.externalApplication);
               }else {
-                showCustomSnackBar('${'can_not_launch'.tr} ${_takeAway ? track.store.phone : track.deliveryMan.phone}');
+                showCustomSnackBar('${'can_not_launch'.tr} ${_takeAway ? track.store != null ? track.store.phone : '' : track.deliveryMan.phone}');
               }
             },
             child: Container(

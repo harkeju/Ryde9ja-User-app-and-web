@@ -97,7 +97,8 @@ class OrderView extends StatelessWidget {
                                     child: CustomImage(
                                       image: _isParcel ? '${Get.find<SplashController>().configModel.baseUrls.parcelCategoryImageUrl}'
                                           '/${paginatedOrderModel.orders[index].parcelCategory != null ? paginatedOrderModel.orders[index].parcelCategory.image : ''}'
-                                          : '${Get.find<SplashController>().configModel.baseUrls.storeImageUrl}/${paginatedOrderModel.orders[index].store.logo}',
+                                          : '${Get.find<SplashController>().configModel.baseUrls.storeImageUrl}/${paginatedOrderModel.orders[index].store != null
+                                          ? paginatedOrderModel.orders[index].store.logo : ''}',
                                       height: _isParcel ? 35 : 60, width: _isParcel ? 35 : 60, fit: _isParcel ? null : BoxFit.cover,
                                     ),
                                   ),

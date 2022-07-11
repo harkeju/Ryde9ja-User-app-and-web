@@ -22,6 +22,8 @@ class ItemImageView extends StatelessWidget {
 
     return GetBuilder<ItemController>(
       builder: (itemController) {
+        String _baseUrl = item.availableDateStarts == null ? Get.find<SplashController>().
+            configModel.baseUrls.itemImageUrl : Get.find<SplashController>().configModel.baseUrls.campaignImageUrl;
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -40,7 +42,7 @@ class ItemImageView extends StatelessWidget {
                       return ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: CustomImage(
-                          image: '${Get.find<SplashController>().configModel.baseUrls.itemImageUrl}/${_imageList[index]}',
+                          image: '$_baseUrl/${_imageList[index]}',
                           height: 200,
                           width: MediaQuery.of(context).size.width,
                         ),

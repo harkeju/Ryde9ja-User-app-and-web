@@ -248,6 +248,10 @@ class AuthController extends GetxController implements GetxService {
     return authRepo.clearSharedData();
   }
 
+  bool clearSharedAddress() {
+    return authRepo.clearSharedAddress();
+  }
+
   void saveUserNumberAndPassword(String number, String password, String countryCode) {
     authRepo.saveUserNumberAndPassword(number, password, countryCode);
   }

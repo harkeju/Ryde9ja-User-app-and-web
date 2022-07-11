@@ -250,13 +250,15 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                   (_parcel && _order.parcelCategory == null) ? Text(
                     'no_parcel_category_data_found'.tr,
-                  ) : Row(children: [
+                  ) : _order.store != null ? Row(children: [
+
                     ClipOval(child: CustomImage(
                       image: _parcel ? '${Get.find<SplashController>().configModel.baseUrls.parcelCategoryImageUrl}/${_order.parcelCategory.image}'
                           : '${Get.find<SplashController>().configModel.baseUrls.storeImageUrl}/${_order.store.logo}',
                       height: 35, width: 35, fit: BoxFit.cover,
                     )),
                     SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
+
                     Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Text(
                         _parcel ? _order.parcelCategory.name : _order.store.name, maxLines: 1, overflow: TextOverflow.ellipsis,
@@ -267,23 +269,27 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).disabledColor),
                       ),
                     ])),
+
                     (!_parcel && _order.orderType == 'take_away' && (_order.orderStatus == 'pending' || _order.orderStatus == 'accepted'
                         || _order.orderStatus == 'confirmed' || _order.orderStatus == 'processing' || _order.orderStatus == 'handover'
-                        || _order.orderStatus == 'picked_up')) ? TextButton.icon(
-                      onPressed: () async {
-                        if(!_parcel) {
-                          String url ='https://www.google.com/maps/dir/?api=1&destination=${_order.store.latitude}'
-                              ',${_order.store.longitude}&mode=d';
-                          if (await canLaunchUrlString(url)) {
-                            await launchUrlString(url);
-                          }else {
-                            showCustomSnackBar('unable_to_launch_google_map'.tr);
+                        || _order.orderStatus == 'picked_up')) ? TextButton.icon(onPressed: () async {
+                          if(!_parcel) {
+                            String url ='https://www.google.com/maps/dir/?api=1&destination=${_order.store.latitude}'
+                                ',${_order.store.longitude}&mode=d';
+                            if (await canLaunchUrlString(url)) {
+                              await launchUrlString(url);
+                            }else {
+                              showCustomSnackBar('unable_to_launch_google_map'.tr);
+                            }
                           }
-                        }
-                      },
-                      icon: Icon(Icons.directions), label: Text('direction'.tr),
+                          }, icon: Icon(Icons.directions), label: Text('direction'.tr),
+
                     ) : SizedBox(),
-                  ])
+
+                  ]) : Center(child: Padding(padding: const EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
+                    child: Text('no_restaurant_data_found'.tr, maxLines: 1, overflow: TextOverflow.ellipsis,
+                      style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall)),
+                  )),
                 ])),
                 SizedBox(height: _parcel ? 0 : Dimensions.PADDING_SIZE_LARGE),
 

@@ -30,10 +30,12 @@ class StoreWidget extends StatelessWidget {
     bool _desktop = ResponsiveHelper.isDesktop(context);
     return InkWell(
       onTap: () {
-        Get.toNamed(
-          RouteHelper.getStoreRoute(store.id, 'item'),
-          arguments: StoreScreen(store: store, fromModule: false),
-        );
+        if(store != null){
+          Get.toNamed(
+            RouteHelper.getStoreRoute(store.id, 'item'),
+            arguments: StoreScreen(store: store, fromModule: false),
+          );
+        }
       },
       child: Container(
         margin: EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),

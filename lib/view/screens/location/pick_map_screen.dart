@@ -68,8 +68,9 @@ class _PickMapScreenState extends State<PickMapScreen> {
               initialCameraPosition: CameraPosition(
                 target: widget.fromAddAddress ? LatLng(locationController.position.latitude, locationController.position.longitude)
                     : _initialPosition,
-                zoom: 17,
+                zoom: 16,
               ),
+              minMaxZoomPreference: MinMaxZoomPreference(0, 16),
               myLocationButtonEnabled: false,
               onMapCreated: (GoogleMapController mapController) {
                 _mapController = mapController;
@@ -130,7 +131,7 @@ class _PickMapScreenState extends State<PickMapScreen> {
                       if(widget.googleMapController != null) {
                         widget.googleMapController.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(
                           locationController.pickPosition.latitude, locationController.pickPosition.longitude,
-                        ), zoom: 17)));
+                        ), zoom: 16)));
                         locationController.setAddAddressData();
                       }
                       Get.back();

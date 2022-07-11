@@ -191,7 +191,7 @@ class RouteHelper {
   }
   static String getSearchStoreItemRoute(int storeID) => '$searchStoreItem?id=$storeID';
   static String getOrderRoute() => '$order';
-  static String getItemDetailsRoute(int itemID) => '$itemDetails?id=$itemID';
+  static String getItemDetailsRoute(int itemID, bool isRestaurant) => '$itemDetails?id=$itemID&page=${isRestaurant ? 'restaurant' : 'item'}';
 
   static List<GetPage> routes = [
     GetPage(name: initial, page: () => getRoute(DashboardScreen(pageIndex: 0))),
@@ -316,7 +316,7 @@ class RouteHelper {
     ))),
     GetPage(name: searchStoreItem, page: () => getRoute(StoreItemSearchScreen(storeID: Get.parameters['id']))),
     GetPage(name: order, page: () => getRoute(OrderScreen())),
-    GetPage(name: itemDetails, page: () => getRoute(Get.arguments != null ? Get.arguments : ItemDetailsScreen(item: Item(id: int.parse(Get.parameters['id']))))),
+    GetPage(name: itemDetails, page: () => getRoute(Get.arguments != null ? Get.arguments : ItemDetailsScreen(item: Item(id: int.parse(Get.parameters['id'])), inStorePage: Get.parameters['page'] == 'restaurant'))),
   ];
 
   static getRoute(Widget navigateTo) {

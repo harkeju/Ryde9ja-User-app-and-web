@@ -6,6 +6,7 @@ import 'package:sixam_mart/controller/wishlist_controller.dart';
 import 'package:sixam_mart/data/model/response/item_model.dart';
 import 'package:sixam_mart/helper/price_converter.dart';
 import 'package:sixam_mart/helper/responsive_helper.dart';
+import 'package:sixam_mart/helper/route_helper.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/styles.dart';
 import 'package:sixam_mart/view/base/custom_snackbar.dart';
@@ -13,7 +14,8 @@ import 'package:sixam_mart/view/base/rating_bar.dart';
 
 class ItemTitleView extends StatelessWidget {
   final Item item;
-  ItemTitleView({@required this.item});
+  final bool inStorePage;
+  ItemTitleView({@required this.item,  this.inStorePage = false});
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,25 @@ class ItemTitleView extends StatelessWidget {
             maxLines: 2, overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+
+          InkWell(
+            onTap: () {
+              if(inStorePage) {
+                Get.back();
+              }else {
+                Get.offNamed(RouteHelper.getStoreRoute(item.storeId, 'item'));
+              }
+            },
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(0, 5, 5, 5),
+              child: Text(
+                item.storeName,
+                style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall),
+              ),
+            ),
+          ),
+          const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+
           RatingBar(rating: item.avgRating, ratingCount: item.ratingCount, size: 21),
           const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
@@ -62,8 +83,7 @@ class ItemTitleView extends StatelessWidget {
           ]),
 
         ],);
-    })
-        : Container(
+    }) : Container(
       color: Theme.of(context).cardColor,
       padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
       child: GetBuilder<ItemController>(
@@ -109,6 +129,24 @@ class ItemTitleView extends StatelessWidget {
               ),
             ]),
             SizedBox(height: 5),
+
+            InkWell(
+              onTap: () {
+                if(inStorePage) {
+                  Get.back();
+                }else {
+                  Get.offNamed(RouteHelper.getStoreRoute(item.storeId, 'item'));
+                }
+              },
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(0, 5, 5, 5),
+                child: Text(
+                  item.storeName,
+                  style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall),
+                ),
+              ),
+            ),
+            const SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
             Text(
               '${PriceConverter.convertPrice(_startingPrice, discount: item.discount, discountType: item.discountType)}'

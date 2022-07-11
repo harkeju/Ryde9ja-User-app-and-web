@@ -219,7 +219,7 @@ class LocationController extends GetxController implements GetxService {
     _isLoading = false;
     ResponseModel responseModel;
     if (response.statusCode == 200) {
-      if(fromCheckout && !getUserAddress().zoneIds.contains(addressModel.zoneId)) {
+      if(fromCheckout && !getUserAddress().zoneIds.contains(response.body['zone_id'].toString())) {
         responseModel = ResponseModel(false, Get.find<SplashController>().configModel.moduleConfig.module.showRestaurantText
             ? 'your_selected_location_is_from_different_zone'.tr : 'your_selected_location_is_from_different_zone_store'.tr);
       }else {

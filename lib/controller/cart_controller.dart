@@ -48,6 +48,9 @@ class CartController extends GetxController implements GetxService {
   void removeFromCart(int index) {
     _cartList.removeAt(index);
     cartRepo.addToCartList(_cartList);
+    if(Get.find<ItemController>().item != null) {
+      Get.find<ItemController>().setExistInCart(Get.find<ItemController>().item, notify: true);
+    }
     update();
   }
 

@@ -27,4 +27,8 @@ class UserRepo {
       'email': userInfoModel.email, 'password': userInfoModel.password});
   }
 
+  Future<Response> deleteUser() async {
+    return await apiClient.deleteData(AppConstants.CUSTOMER_REMOVE);
+  }
+
 }

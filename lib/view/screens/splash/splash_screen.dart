@@ -8,6 +8,7 @@ import 'package:sixam_mart/controller/splash_controller.dart';
 import 'package:sixam_mart/controller/wishlist_controller.dart';
 import 'package:sixam_mart/helper/route_helper.dart';
 import 'package:sixam_mart/util/app_constants.dart';
+import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/images.dart';
 import 'package:sixam_mart/view/base/no_internet_screen.dart';
 import 'package:flutter/material.dart';
@@ -115,8 +116,8 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(Images.logo, width: 200),
-              /*SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-              Text(AppConstants.APP_NAME, style: robotoMedium.copyWith(fontSize: 25)),*/
+              SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+              // Text(AppConstants.APP_NAME, style: robotoMedium.copyWith(fontSize: 25)),
             ],
           ) : NoInternetScreen(child: SplashScreen(orderID: widget.orderID)),
         );

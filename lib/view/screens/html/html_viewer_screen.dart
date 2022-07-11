@@ -61,7 +61,7 @@ class _HtmlViewerScreenState extends State<HtmlViewerScreen> {
                   key: Key(widget.htmlType.toString()),
                   isSelectable: true,
                   onTapUrl: (String url) {
-                    return launchUrlString(url);
+                    return launchUrlString(url, mode: LaunchMode.externalApplication);
                   },
                 ) : SelectableHtml(
                   data: splashController.htmlText, shrinkWrap: true,

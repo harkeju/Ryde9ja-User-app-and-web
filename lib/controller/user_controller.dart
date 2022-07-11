@@ -1,5 +1,8 @@
 import 'dart:typed_data';
 
+import 'package:sixam_mart/controller/auth_controller.dart';
+import 'package:sixam_mart/controller/cart_controller.dart';
+import 'package:sixam_mart/controller/wishlist_controller.dart';
 import 'package:sixam_mart/data/api/api_checker.dart';
 import 'package:sixam_mart/data/model/response/response_model.dart';
 import 'package:sixam_mart/data/repository/user_repo.dart';
@@ -8,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sixam_mart/helper/network_info.dart';
+import 'package:sixam_mart/helper/route_helper.dart';
+import 'package:sixam_mart/view/base/custom_snackbar.dart';
 
 class UserController extends GetxController implements GetxService {
   final UserRepo userRepo;
@@ -88,6 +93,24 @@ class UserController extends GetxController implements GetxService {
   void initData() {
     _pickedFile = null;
     _rawFile = null;
+  }
+
+  Future removeUser() async {
+    _isLoading = true;
+    update();
+    Response response = await userRepo.deleteUser();
+    _isLoading = false;
+    if (response.statusCode == 200) {
+      showCustomSnackBar('your_account_remove_successfully'.tr);
+      Get.find<AuthController>().clearSharedData();
+      Get.find<CartController>().clearCartList();
+      Get.find<WishListController>().removeWishes();
+      Get.offAllNamed(RouteHelper.getSignInRoute(RouteHelper.splash));
+
+    }else{
+      Get.back();
+      ApiChecker.checkApi(response);
+    }
   }
 
 }

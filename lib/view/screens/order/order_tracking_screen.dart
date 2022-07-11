@@ -82,7 +82,8 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
           GoogleMap(
             initialCameraPosition: CameraPosition(target: LatLng(
               double.parse(_track.deliveryAddress.latitude), double.parse(_track.deliveryAddress.longitude),
-            ), zoom: 18),
+            ), zoom: 16),
+            minMaxZoomPreference: MinMaxZoomPreference(0, 16),
             zoomControlsEnabled: true,
             markers: _markers,
             onMapCreated: (GoogleMapController controller) {
